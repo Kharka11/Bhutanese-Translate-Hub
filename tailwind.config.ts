@@ -13,7 +13,15 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        poppins: ['Poppins', 'sans-serif'],
+      },
       colors: {
+        'bhutan-red': 'hsl(var(--bhutan-red))',
+        'bhutan-orange': 'hsl(var(--bhutan-orange))',
+        'bhutan-gold': 'hsl(var(--bhutan-gold))',
+        'bhutan-earth': 'hsl(var(--bhutan-earth))',
+        'bhutan-cream': 'hsl(var(--bhutan-cream))',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
