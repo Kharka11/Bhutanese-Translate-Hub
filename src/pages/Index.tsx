@@ -2,23 +2,44 @@ import { useState } from "react";
 import Navigation from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { ArrowRightLeft } from "lucide-react";
+import { ArrowRightLeft, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import heroImage from "@/assets/bhutan-hero.jpg";
 
 const Index = () => {
   const [englishText, setEnglishText] = useState("");
   const [dzongkhaText, setDzongkhaText] = useState("");
+  const [isTranslating, setIsTranslating] = useState(false);
 
-  const handleTranslate = () => {
+  const handleTranslate = async () => {
     if (!englishText.trim()) {
       toast.error("Please enter text to translate");
       return;
     }
     
-    // Simulated translation (in a real app, this would call an API)
-    setDzongkhaText("རྫོང་ཁ་སྒྱུར་འགྱུར་གྱི་དཔེ་ཡིག།");
-    toast.success("Translation complete!");
+    setIsTranslating(true);
+    try {
+      const response = await fetch("http://localhost:5000/translate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ text: englishText }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Translation failed");
+      }
+
+      const data = await response.json();
+      setDzongkhaText(data.translation);
+      toast.success("Translation complete!");
+    } catch (error) {
+      console.error("Translation error:", error);
+      toast.error("Failed to translate. Make sure the Flask server is running on port 5000.");
+    } finally {
+      setIsTranslating(false);
+    }
   };
 
   return (
@@ -84,11 +105,16 @@ const Index = () => {
               <div className="flex justify-center mt-8">
                 <Button
                   onClick={handleTranslate}
+                  disabled={isTranslating}
                   size="lg"
-                  className="bg-gradient-to-r from-bhutan-red via-bhutan-orange to-bhutan-gold text-white hover:opacity-90 transition-opacity px-12 py-6 text-lg font-semibold rounded-full shadow-lg"
+                  className="bg-gradient-to-r from-bhutan-red via-bhutan-orange to-bhutan-gold text-white hover:opacity-90 transition-opacity px-12 py-6 text-lg font-semibold rounded-full shadow-lg disabled:opacity-50"
                 >
-                  <ArrowRightLeft className="mr-2 h-5 w-5" />
-                  Translate
+                  {isTranslating ? (
+                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                  ) : (
+                    <ArrowRightLeft className="mr-2 h-5 w-5" />
+                  )}
+                  {isTranslating ? "Translating..." : "Translate"}
                 </Button>
               </div>
             </div>

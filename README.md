@@ -1,73 +1,66 @@
-# Welcome to your Lovable project
+# Bhutanese Translate Hub
 
-## Project info
+A Dzongkha-English translation web app powered by a LoRA fine-tuned NLLB/M2M100 model, served via a Flask API with a React frontend.
 
-**URL**: https://lovable.dev/projects/2418e068-aa1f-4540-9418-52657e99f288
+## How It Works
 
-## How can I edit this code?
+- The Flask backend loads a LoRA fine-tuned `M2M100ForConditionalGeneration` model and exposes a `/translate` POST endpoint
+- The React frontend (built with Vite + TypeScript + Tailwind + shadcn/ui) sends text to the API and displays the translation
+- Supports Dzongkha → English translation with a `<dzo>` target token prefix
 
-There are several ways of editing your application.
+## Tech Stack
 
-**Use Lovable**
+- **Backend:** Python, Flask, Flask-CORS
+- **Model:** NLLB/M2M100 fine-tuned with LoRA (merged weights)
+- **Frontend:** React, TypeScript, Vite, Tailwind CSS, shadcn/ui
+- **Inference:** PyTorch (CUDA / MPS / CPU)
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/2418e068-aa1f-4540-9418-52657e99f288) and start prompting.
+## Getting Started
 
-Changes made via Lovable will be committed automatically to this repo.
+### Prerequisites
 
-**Use your preferred IDE**
+- Python 3.9+
+- Node.js 18+
+- The fine-tuned `model.safetensors` file (see note below)
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Setup
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Kharka11/BhutaneseTranslateHub.git
+   cd BhutaneseTranslateHub
+   ```
 
-Follow these steps:
+2. Place the model weights in the `model/` folder:
+   ```
+   model/
+   ├── model.safetensors   ← not included in repo (file too large)
+   ├── config.json
+   ├── tokenizer.json
+   ├── tokenizer_config.json
+   ├── sentencepiece.bpe.model
+   └── special_tokens_map.json
+   ```
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+3. Install Python dependencies:
+   ```bash
+   pip install flask flask-cors torch transformers
+   ```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+4. Build the React frontend:
+   ```bash
+   npm install
+   npm run build
+   ```
 
-# Step 3: Install the necessary dependencies.
-npm i
+5. Start the Flask server:
+   ```bash
+   python app.py
+   ```
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+6. Open `http://localhost:5000` in your browser.
 
-**Edit a file directly in GitHub**
+## Notes
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/2418e068-aa1f-4540-9418-52657e99f288) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+- `model/model.safetensors` is excluded from this repository due to its size (2.3GB).
+- The tokenizer and config files are included — only the weights file needs to be provided separately.

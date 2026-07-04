@@ -8,25 +8,25 @@ import designer4 from "@/assets/designer4.jpg";
 
 const designers = [
   {
-    name: "Tashi Dorji",
+    name: "Kharka Bdr Chetri",
     role: "Lead Developer",
     image: designer1,
     bio: "Expert in full-stack development with a passion for preserving Bhutanese culture through technology.",
   },
   {
-    name: "Sonam Wangmo",
+    name: "Tshering Wangmo",
     role: "UI/UX Designer",
     image: designer2,
     bio: "Creative designer blending traditional Bhutanese aesthetics with modern design principles.",
   },
   {
-    name: "Karma Tenzin",
+    name: "Tashi Tshering Wangchuk",
     role: "Linguistic Specialist",
     image: designer3,
     bio: "Dzongkha language expert ensuring accurate and culturally sensitive translations.",
   },
   {
-    name: "Pema Choden",
+    name: "Lekzin Wangmo",
     role: "Backend Engineer",
     image: designer4,
     bio: "Specializes in building scalable systems and translation algorithms for Dzongkha.",
