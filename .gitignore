@@ -17,8 +17,8 @@ dist-ssr
 !.vscode/extensions.json
 .idea
 .DS_Store
-# Model weights (too large for GitHub)
-model/model.safetensors
+# Model folder (too large for GitHub)
+model/
 # Python
 __pycache__/
 *.pyc

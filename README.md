@@ -62,5 +62,4 @@ A Dzongkha-English translation web app powered by a LoRA fine-tuned NLLB/M2M100 
 
 ## Notes
 
-- `model/model.safetensors` is excluded from this repository due to its size (2.3GB).
-- The tokenizer and config files are included — only the weights file needs to be provided separately.
+- The `model/` folder is excluded from this repository due to size.
